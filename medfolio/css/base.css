@@ -1,0 +1,68 @@
+:root {
+  --bg: #f7f5f0;
+  --surface: #ffffff;
+  --surface2: #f0ede6;
+  --border: #e2ddd5;
+  --text: #1a1815;
+  --text2: #6b6560;
+  --text3: #a09b94;
+  --accent: #2d5a3d;
+  --accent2: #4a8c5c;
+  --accent-light: #e8f5ed;
+  --gold: #b8860b;
+  --gold-light: #fdf6e3;
+  --red: #c0392b;
+  --red-light: #fdf0ee;
+  --blue: #1a4a6e;
+  --blue-light: #e8f0f8;
+  --purple: #5b48cc;
+  --purple-light: #f0edfe;
+  --radius: 12px;
+  --radius-sm: 8px;
+  --radius-lg: 20px;
+  --shadow: 0 1px 4px rgba(0,0,0,0.08);
+  --font-main: 'DM Sans', system-ui, -apple-system, sans-serif;
+  --font-display: 'DM Serif Display', Georgia, serif;
+  --max-w: 480px;
+}
+
+*, ::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-text-size-adjust: 100%; }
+body { font-family: var(--font-main); background: var(--bg); color: var(--text); min-height:100vh; -webkit-font-smoothing:antialiased; overflow-x:hidden }
+img, svg { display:block; max-width:100%; }
+button { cursor:pointer; font-family:var(--font-main); }
+input, select, textarea { font-family:var(--font-main); }
+
+.app-wrapper { max-width: var(--max-w); margin:0 auto; min-height:100vh; background:var(--bg); position:relative; overflow-x:hidden }
+@media (min-width:768px){ body{ background:#1a2e20 } .app-wrapper{ box-shadow:0 0 60px rgba(0,0,0,0.4); min-height:100vh } }
+
+@keyframes screenIn{ from{opacity:0} to{opacity:1} }
+.screen.active{ animation: screenIn 0.15s ease }
+
+@keyframes toastIn{ from{opacity:0; transform:translateX(-50%) translateY(8px)} to{opacity:1; transform:translateX(-50%) translateY(0)} }
+
+.btn-primary:active{ opacity:0.85; transform:scale(0.99) }
+.btn-secondary:active{ opacity:0.75 }
+.form-control{ transition:border-color 0.15s }
+
+.screen{ display:none; min-height:100vh; overflow-y:auto; -webkit-overflow-scrolling:touch }
+.screen.active{ display:block }
+.scrollable-content{ padding-bottom:80px }
+
+/* Layout helpers */
+.topbar{ background:var(--surface); padding:14px 20px 12px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid var(--border); position:sticky; top:0; z-index:100 }
+
+#toast{ position:fixed; bottom:80px; left:50%; transform:translateX(-50%) translateY(8px); background:#1a2e20; color:#fff; padding:11px 22px; border-radius:24px; font-size:14px; opacity:0; pointer-events:none; z-index:500; white-space:nowrap; transition:opacity 0.15s, transform 0.15s }
+#toast.show{ opacity:1; transform:translateX(-50%) translateY(0) }
+
+/* common form */
+.form-control{ width:100%; padding:12px 14px; background:var(--surface); border:1.5px solid var(--border); border-radius:var(--radius-sm); font-size:15px; color:var(--text); }
+.form-control:focus{ outline:none; border-color:var(--accent2) }
+
+.info-card{ background:var(--accent-light); border-radius:var(--radius-sm); padding:12px; margin:12px }
+
+/* login root to allow full screen card */
+.login-root{ min-height:100vh; display:flex; align-items:center; justify-content:center; padding:24px }
+
+/* accessibility */
+button, .nav-btn { min-height:44px }

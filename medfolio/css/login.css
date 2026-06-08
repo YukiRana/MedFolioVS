@@ -1,0 +1,8 @@
+.login-card{ width:100%; max-width:420px; background:var(--surface); border-radius:12px; padding:20px; box-shadow:0 6px 20px rgba(0,0,0,0.12) }
+.login-brand{ text-align:center; margin-bottom:14px }
+.login-brand .logo{ font-family:var(--font-display); color:var(--accent); font-size:28px }
+.login-brand .subtitle{ font-size:11px; color:var(--text3); letter-spacing:1px; margin-top:6px }
+.password-wrap{ position:relative }
+.pw-toggle{ position:absolute; right:8px; top:8px; border:none; background:transparent; font-size:14px }
+.login-error{ color:var(--red); margin:10px 0; font-size:13px }
+@media (max-width:768px){ body{ background:var(--surface); } .login-card{ border-radius:0; height:100vh; display:flex; flex-direction:column; justify-content:center; box-shadow:none } }

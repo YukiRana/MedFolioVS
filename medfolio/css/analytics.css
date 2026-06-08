@@ -1,0 +1,2 @@
+.stats-grid{ display:grid; grid-template-columns:1fr 1fr; gap:12px; padding:12px }
+.charts{ padding:12px; display:flex; flex-direction:column; gap:12px }

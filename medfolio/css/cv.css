@@ -1,0 +1,6 @@
+.cv-info{ flex:1 }
+.cv-name{ font-weight:700 }
+.cv-role{ color:var(--text3) }
+.cv-section{ border-top:1px solid var(--border); padding:12px }
+.cv-section h4{ display:flex; justify-content:space-between; align-items:center }
+.cv-entry{ padding:8px 0 }

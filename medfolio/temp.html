@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MedFolio — Home</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Fraunces:ital,wght@1,300&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:          #0D1B2A;
+      --teal:          #2EC4B6;
+      --white:         #F7F9FB;
+      --surface:       #FFFFFF;
+      --bg:            #F0F3F7;
+      --text-pri:      #0D1B2A;
+      --text-sec:      #6B7A8D;
+      --text-hint:     #9BAAB8;
+      --border:        rgba(13,27,42,0.09);
+      --border-md:     rgba(13,27,42,0.14);
+
+      --icon-teal-bg:   #E1F5EE; --icon-teal-fg:   #0F6E56;
+      --icon-blue-bg:   #E6F1FB; --icon-blue-fg:   #185FA5;
+      --icon-amber-bg:  #FAEEDA; --icon-amber-fg:  #854F0B;
+      --icon-purple-bg: #EEEDFE; --icon-purple-fg: #3C3489;
+      --icon-green-bg:  #EAF3DE; --icon-green-fg:  #3B6D11;
+
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 18px;
+      --radius-xl: 24px;
+
+      --header-h: 220px;   /* total height of the fixed top header   */
+      --nav-h:     68px;   /* total height of the fixed bottom nav   */
+      --fab-size:  54px;   /* diameter of the raised home button     */
+      --fab-lift:  16px;   /* how far the FAB floats above nav bar   */
+    }
+
+    /* ─────────────────────────────────────────
+       ROOT: fill the viewport, no page scroll
+    ───────────────────────────────────────── */
+    html, body {
+      height: 100%;
+      overflow: hidden;           /* page itself never scrolls */
+      background: var(--bg);
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    /* ─────────────────────────────────────────
+       FIXED HEADER — logo + greeting + stats
+    ───────────────────────────────────────── */
+    .header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: var(--navy);
+      padding: 40px 22px 0;       /* 40px top for status-bar safe area */
+      overflow: hidden;
+    }
+
+    /* teal radial glow */
+    .header::before {
+      content: '';
+      position: absolute;
+      top: -40px; right: -40px;
+      width: 220px; height: 220px;
+      background: radial-gradient(circle, rgba(46,196,182,0.13) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .logo {
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: 21px;
+      color: var(--white);
+      letter-spacing: 0.3px;
+      user-select: none;
+    }
+    .logo em { font-style: normal; color: var(--teal); }
+
+    .topbar-actions { display: flex; gap: 10px; }
+
+    .icon-btn {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.07);
+      border: 0.5px solid rgba(255,255,255,0.10);
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(247,249,251,0.75);
+      font-size: 17px;
+      cursor: pointer;
+      transition: background 0.15s;
+      text-decoration: none;
+    }
+    .icon-btn:hover { background: rgba(255,255,255,0.14); }
+
+    .greeting-label {
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: 13px;
+      color: rgba(247,249,251,0.45);
+      margin-bottom: 3px;
+    }
+
+    .greeting-name {
+      font-size: 23px;
+      font-weight: 600;
+      color: var(--white);
+      letter-spacing: -0.4px;
+      margin-bottom: 18px;
+    }
+
+    /* stat cards */
+    .stats-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      position: relative; z-index: 1;
+    }
+
+    .stat-card {
+      background: rgba(255,255,255,0.055);
+      border: 0.5px solid rgba(255,255,255,0.10);
+      border-radius: var(--radius-md);
+      padding: 12px 14px 13px;
+    }
+
+    .stat-label {
+      font-size: 10px;
+      font-weight: 600;
+      color: rgba(247,249,251,0.38);
+      text-transform: uppercase;
+      letter-spacing: 0.9px;
+      margin-bottom: 5px;
+    }
+
+    .stat-value {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--white);
+      letter-spacing: -0.3px;
+      line-height: 1;
+    }
+    .stat-value.teal { color: var(--teal); }
+
+    /* ECG pulse strip — bottom of header */
+    .pulse-strip { height: 36px; width: 100%; overflow: hidden; margin-top: 2px; }
+    .pulse-strip svg { width: 200%; height: 100%; animation: ecg 3.2s linear infinite; }
+    @keyframes ecg {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ─────────────────────────────────────────
+       SCROLL AREA — sits between header & nav
+    ───────────────────────────────────────── */
+    .scroll-area {
+      position: fixed;
+      top: var(--header-h);
+      left: 0; right: 0;
+      bottom: var(--nav-h);
+      overflow-y: auto;
+      overflow-x: hidden;
+      background: var(--bg);
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .scroll-area::-webkit-scrollbar { display: none; }
+
+    .scroll-inner {
+      padding: 22px 16px 32px;
+    }
+
+    .section-eyebrow {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--text-hint);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 13px;
+    }
+
+    /* module cards */
+    .module-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .module-card {
+      background: var(--surface);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 15px 14px 14px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      text-align: left;
+      transition: border-color 0.15s, transform 0.1s;
+      color: inherit;
+    }
+    .module-card:hover  { border-color: var(--border-md); }
+    .module-card:active { transform: scale(0.97); }
+
+    .module-icon {
+      width: 36px; height: 36px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+    }
+
+    .module-title { font-size: 13px; font-weight: 600; color: var(--text-pri); line-height: 1.25; }
+    .module-desc  { font-size: 11px; color: var(--text-sec); line-height: 1.45; margin-top: -2px; }
+
+    .module-card.wide {
+      grid-column: 1 / -1;
+      flex-direction: row;
+      align-items: center;
+      gap: 13px;
+      padding: 14px 15px;
+    }
+    .module-card.wide .module-info { flex: 1; }
+    .module-card.wide .module-icon { width: 40px; height: 40px; flex-shrink: 0; }
+    .wide-chevron { color: var(--text-hint); font-size: 18px; flex-shrink: 0; }
+
+    .ic-teal   { background: var(--icon-teal-bg);   color: var(--icon-teal-fg); }
+    .ic-blue   { background: var(--icon-blue-bg);   color: var(--icon-blue-fg); }
+    .ic-amber  { background: var(--icon-amber-bg);  color: var(--icon-amber-fg); }
+    .ic-purple { background: var(--icon-purple-bg); color: var(--icon-purple-fg); }
+    .ic-green  { background: var(--icon-green-bg);  color: var(--icon-green-fg); }
+
+    /* ─────────────────────────────────────────
+       FIXED BOTTOM NAV
+    ───────────────────────────────────────── */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      z-index: 100;
+      display: flex;
+      align-items: stretch;
+      background: var(--surface);
+      border-top: 0.5px solid var(--border);
+      /* safe area inset for notched phones */
+      padding-bottom: env(safe-area-inset-bottom, 0px);
+    }
+
+    /* regular tab */
+    .nav-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      padding: 10px 4px 10px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      color: var(--text-hint);
+      transition: color 0.15s;
+      position: relative;
+      font-family: 'DM Sans', sans-serif;
+    }
+    .nav-item:hover { color: var(--text-sec); }
+    .nav-item.active { color: var(--navy); }
+
+    /* teal top-bar indicator for active non-home tabs */
+    .nav-item.active:not(.nav-home)::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 24px; height: 3px;
+      background: var(--teal);
+      border-radius: 0 0 3px 3px;
+    }
+
+    .nav-icon-wrap {
+      width: 28px; height: 28px;
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+    }
+
+    .nav-item.active:not(.nav-home) .nav-icon-wrap {
+      background: rgba(46,196,182,0.10);
+      border-radius: 8px;
+    }
+
+    .nav-item i { font-size: 20px; line-height: 1; }
+    .nav-label  { font-size: 10px; font-weight: 500; letter-spacing: 0.2px; line-height: 1; }
+
+    .nav-badge {
+      position: absolute;
+      top: -2px; right: -4px;
+      width: 8px; height: 8px;
+      background: var(--teal);
+      border-radius: 50%;
+      border: 1.5px solid var(--surface);
+    }
+
+    /* ── RAISED HOME BUTTON (centre FAB) ── */
+    .nav-home {
+      flex: 0 0 80px;               /* slightly wider slot for the FAB */
+      overflow: visible;
+      justify-content: flex-end;    /* label at bottom; FAB floats above */
+      padding-bottom: 8px;
+    }
+
+    .nav-home .nav-icon-wrap {
+      position: absolute;
+      top: calc(-1 * var(--fab-lift));
+      left: 50%;
+      transform: translateX(-50%);
+      width: var(--fab-size);
+      height: var(--fab-size);
+      border-radius: 50%;
+      background: var(--navy);
+      box-shadow: 0 4px 16px rgba(13,27,42,0.28), 0 1px 4px rgba(13,27,42,0.18);
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+
+    .nav-home .nav-icon-wrap i {
+      font-size: 22px;
+      color: var(--white);
+    }
+
+    .nav-home:hover .nav-icon-wrap {
+      box-shadow: 0 6px 22px rgba(13,27,42,0.34), 0 2px 6px rgba(13,27,42,0.18);
+      transform: translateX(-50%) translateY(-2px);
+    }
+
+    .nav-home:active .nav-icon-wrap {
+      transform: translateX(-50%) translateY(1px);
+      box-shadow: 0 2px 8px rgba(13,27,42,0.22);
+    }
+
+    /* teal ring when home tab is active */
+    .nav-home.active .nav-icon-wrap {
+      box-shadow: 0 4px 16px rgba(13,27,42,0.28), 0 0 0 3px var(--teal);
+    }
+
+    .nav-home .nav-label {
+      position: relative;
+      z-index: 1;
+    }
+    .nav-home.active .nav-label { color: var(--navy); font-weight: 600; }
+  </style>
+</head>
+<body>
+
+  <!-- ══ FIXED HEADER ══ -->
+  <header class="header">
+    <div class="topbar">
+      <div class="logo">Med<em>Folio</em></div>
+      <div class="topbar-actions">
+        <a class="icon-btn" href="#" aria-label="Search"><i class="ti ti-search" aria-hidden="true"></i></a>
+        <a class="icon-btn" href="#" aria-label="Notifications"><i class="ti ti-bell" aria-hidden="true"></i></a>
+      </div>
+    </div>
+
+    <p class="greeting-label" id="greeting-text">Good morning,</p>
+    <h1 class="greeting-name">Dr. Achala</h1>
+
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-label">This Month</div>
+        <div class="stat-value teal" id="stat-revenue">LKR 0</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Events Logged</div>
+        <div class="stat-value" id="stat-events">0</div>
+      </div>
+    </div>
+
+    <div class="pulse-strip" aria-hidden="true">
+      <svg viewBox="0 0 760 36" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <polyline
+          points="0,18 55,18 70,18 82,3 94,33 104,6 116,30 128,18 190,18
+                  250,18 265,18 277,3 289,33 299,6 311,30 323,18 385,18
+                  445,18 460,18 472,3 484,33 494,6 506,30 518,18 580,18
+                  640,18 655,18 667,3 679,33 689,6 701,30 713,18 760,18"
+          fill="none" stroke="#2EC4B6" stroke-width="1.6"
+          stroke-linecap="round" stroke-linejoin="round" opacity="0.28"
+        />
+      </svg>
+    </div>
+  </header>
+
+  <!-- ══ SCROLLABLE CONTENT ══ -->
+  <div class="scroll-area" role="main">
+    <div class="scroll-inner">
+      <p class="section-eyebrow">Quick access</p>
+
+      <div class="module-grid">
+
+        <button class="module-card" onclick="startPractice()" aria-label="Private Practice">
+          <div class="module-icon ic-teal" aria-hidden="true"><i class="ti ti-stethoscope"></i></div>
+          <div>
+            <div class="module-title">Private Practice</div>
+            <div class="module-desc">Log sessions &amp; income</div>
+          </div>
+        </button>
+
+        <button class="module-card" onclick="showScreen('screen-events')" aria-label="Events">
+          <div class="module-icon ic-blue" aria-hidden="true"><i class="ti ti-calendar-event"></i></div>
+          <div>
+            <div class="module-title">Events</div>
+            <div class="module-desc">Conferences &amp; teaching</div>
+          </div>
+        </button>
+
+        <button class="module-card" onclick="showScreen('screen-records')" aria-label="View Records">
+          <div class="module-icon ic-amber" aria-hidden="true"><i class="ti ti-folder-open"></i></div>
+          <div>
+            <div class="module-title">View Records</div>
+            <div class="module-desc">All saved sessions</div>
+          </div>
+        </button>
+
+        <button class="module-card" onclick="showScreen('screen-cv')" aria-label="CV Dashboard">
+          <div class="module-icon ic-purple" aria-hidden="true"><i class="ti ti-file-cv"></i></div>
+          <div>
+            <div class="module-title">CV Dashboard</div>
+            <div class="module-desc">Export &amp; manage CV</div>
+          </div>
+        </button>
+
+        <button class="module-card wide" onclick="showScreen('screen-analytics')" aria-label="Analytics">
+          <div class="module-icon ic-green" aria-hidden="true"><i class="ti ti-chart-bar"></i></div>
+          <div class="module-info">
+            <div class="module-title">Analytics</div>
+            <div class="module-desc">Revenue &amp; activity overview</div>
+          </div>
+          <i class="ti ti-chevron-right wide-chevron" aria-hidden="true"></i>
+        </button>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ FIXED BOTTOM NAV ══ -->
+  <nav class="bottom-nav" aria-label="Main navigation">
+
+    <button class="nav-item" onclick="setActive(this); showScreen('screen-records')" aria-label="Records">
+      <div class="nav-icon-wrap"><i class="ti ti-folder-open" aria-hidden="true"></i></div>
+      <span class="nav-label">Records</span>
+    </button>
+
+    <button class="nav-item" onclick="setActive(this); showScreen('screen-events')" aria-label="Events">
+      <div class="nav-icon-wrap"><i class="ti ti-calendar-event" aria-hidden="true"></i></div>
+      <span class="nav-label">Events</span>
+    </button>
+
+    <!-- ── RAISED HOME BUTTON ── -->
+    <button class="nav-item nav-home active" onclick="setActive(this); showScreen('screen-home')" aria-label="Home" aria-current="page">
+      <div class="nav-icon-wrap"><i class="ti ti-home" aria-hidden="true"></i></div>
+      <span class="nav-label">Home</span>
+    </button>
+
+    <button class="nav-item" onclick="setActive(this); showScreen('screen-analytics')" aria-label="Analytics">
+      <div class="nav-icon-wrap">
+        <i class="ti ti-chart-bar" aria-hidden="true"></i>
+        <span class="nav-badge" aria-hidden="true"></span>
+      </div>
+      <span class="nav-label">Analytics</span>
+    </button>
+
+    <button class="nav-item" onclick="setActive(this); showScreen('screen-cv')" aria-label="Profile">
+      <div class="nav-icon-wrap"><i class="ti ti-user-circle" aria-hidden="true"></i></div>
+      <span class="nav-label">Profile</span>
+    </button>
+
+  </nav>
+
+<script>
+  /* Measure actual header height and sync CSS variable */
+  function syncHeaderHeight() {
+    var h = document.querySelector('.header').getBoundingClientRect().height;
+    document.documentElement.style.setProperty('--header-h', Math.round(h) + 'px');
+  }
+  syncHeaderHeight();
+  window.addEventListener('resize', syncHeaderHeight);
+
+  /* Greeting by time of day */
+  (function () {
+    var h = new Date().getHours();
+    var el = document.getElementById('greeting-text');
+    if (el) el.textContent = h < 12 ? 'Good morning,' : h < 17 ? 'Good afternoon,' : 'Good evening,';
+  })();
+
+  /* Nav active state */
+  function setActive(el) {
+    document.querySelectorAll('.nav-item').forEach(function(btn) {
+      btn.classList.remove('active');
+      btn.removeAttribute('aria-current');
+    });
+    el.classList.add('active');
+    el.setAttribute('aria-current', 'page');
+  }
+
+  /* Stub nav functions — replace with your router */
+  function showScreen(id) { console.log('Navigate to:', id); }
+  function startPractice() { showScreen('screen-practice'); }
+  function logout() { console.log('Logging out'); }
+
+  /* Stat updaters */
+  window.MedFolio = {
+    setRevenue: function(val) {
+      var el = document.getElementById('stat-revenue');
+      if (el) el.textContent = 'LKR ' + Number(val).toLocaleString();
+    },
+    setEvents: function(val) {
+      var el = document.getElementById('stat-events');
+      if (el) el.textContent = val;
+    }
+  };
+</script>
+</body>
+</html>
+
+<!-- HOME -->
+   <div class="screen active" id="screen-home" class="home">
+     <div class="topbar">
+      <div class="logo">Med<em>Folio</em></div>
+        <div class="topbar-actions">
+          <a class="icon-btn" href="#" aria-label="Search"><i class="ti ti-search" aria-hidden="true"></i></a>
+          <a class="icon-btn" href="#" aria-label="Notifications"><i class="ti ti-bell" aria-hidden="true"></i></a>
+        </div>
+    </div>
+
+     <div class="scrollable-content">
+       <div class="home-header">
+          <p class="greeting-label" id="greeting-text">Good morning,</p>
+          <h1 class="greeting-name">Dr. Achala</h1>
+         <div class="home-stats-row">
+           <div class="stat-card">
+              <div class="stat-label">This Month</div>
+              <div class="stat-value teal" id="stat-revenue">LKR 0</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Events Logged</div>
+              <div class="stat-value" id="stat-events">0</div>
+            </div>
+         </div>
+       </div>
+       <div class="pulse-strip" aria-hidden="true">
+      <svg viewBox="0 0 760 36" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <polyline
+          points="0,18 55,18 70,18 82,3 94,33 104,6 116,30 128,18 190,18
+                  250,18 265,18 277,3 289,33 299,6 311,30 323,18 385,18
+                  445,18 460,18 472,3 484,33 494,6 506,30 518,18 580,18
+                  640,18 655,18 667,3 679,33 689,6 701,30 713,18 760,18"
+          fill="none" stroke="#2EC4B6" stroke-width="1.6"
+          stroke-linecap="round" stroke-linejoin="round" opacity="0.28"
+        />
+      </svg>
+    </div>

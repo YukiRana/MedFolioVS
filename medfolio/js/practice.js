@@ -6,7 +6,7 @@ function startPractice(){
 }
 
 function populateHospitals(){
-  const hospitals = ['Colombo','Kandy','Galle','Jaffna','Negombo','Lakeside','Maharagama','NHSL'];
+  const hospitals = ['Asiri','⁠Suwasewana','⁠CCC','⁠Lakeside','⁠Madawala','⁠Digana','Manikhinna'];
   const grid = document.getElementById('hospital-grid');
   grid.innerHTML = hospitals.map(h => `<button type="button" onclick="selectHospital('${h}',this)">${h}</button>`).join('');
 }

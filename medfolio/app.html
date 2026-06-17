@@ -22,7 +22,7 @@
   <div class="app-wrapper">
 
    <!-- HOME -->
-   <div class="screen active" id="screen-home">
+   <div class="screen active" id="screen-home" class="header">
      <div class="topbar">
        <div></div>
        <div class="topbar-title">MedFolio</div>
@@ -44,17 +44,51 @@
          </div>
        </div>
 
+  <!-- ══ SCROLLABLE CONTENT ══ -->
        <div class="module-grid">
-         <button class="module-card" onclick="startPractice()"><div class="module-icon badge-green">⛑</div><div class="module-title">Private Practice</div><div class="module-desc">Log sessions & income</div></button>
-         <button class="module-card" onclick="showScreen('screen-events')"><div class="module-icon badge-blue">📅</div><div class="module-title">Events</div><div class="module-desc">Add conferences & teaching</div></button>
-         <button class="module-card" onclick="showScreen('screen-records')"><div class="module-icon badge-gold">📁</div><div class="module-title">View Records</div><div class="module-desc">All saved sessions</div></button>
-         <button class="module-card" onclick="showScreen('screen-cv')"><div class="module-icon badge-purple">📝</div><div class="module-title">CV Dashboard</div><div class="module-desc">Export & manage CV</div></button>
-         <div class="module-card module-analytics" onclick="showScreen('screen-analytics')"><div class="module-icon badge-green">📊</div><div class="module-title">Analytics</div><div class="module-desc">Revenue & activity</div></div>
-       </div>
 
-       <div class="home-footer">
-         <button class="btn-secondary" id="signout" onclick="logout()"><i class="ti ti-door-open"></i> Sign Out</button>
-       </div>
+        <button class="module-card" onclick="startPractice()" aria-label="Private Practice">
+          <div class="module-icon ic-teal" aria-hidden="true"><i class="ti ti-stethoscope"></i></div>
+          <div>
+            <div class="module-title">Private Practice</div>
+            <div class="module-desc">Log sessions &amp; income</div>
+          </div>
+        </button>
+
+        <button class="module-card" onclick="showScreen('screen-events')" aria-label="Events">
+          <div class="module-icon ic-blue" aria-hidden="true"><i class="ti ti-calendar-event"></i></div>
+          <div>
+            <div class="module-title">Events</div>
+            <div class="module-desc">Conferences &amp; teaching</div>
+          </div>
+        </button>
+
+        <button class="module-card" onclick="showScreen('screen-records')" aria-label="View Records">
+          <div class="module-icon ic-amber" aria-hidden="true"><i class="ti ti-folder-open"></i></div>
+          <div>
+            <div class="module-title">View Records</div>
+            <div class="module-desc">All saved sessions</div>
+          </div>
+        </button>
+
+        <button class="module-card" onclick="showScreen('screen-cv')" aria-label="CV Dashboard">
+          <div class="module-icon ic-purple" aria-hidden="true"><i class="ti ti-file-cv"></i></div>
+          <div>
+            <div class="module-title">CV Dashboard</div>
+            <div class="module-desc">Export &amp; manage CV</div>
+          </div>
+        </button>
+
+        <button class="module-card wide" onclick="showScreen('screen-analytics')" aria-label="Analytics">
+          <div class="module-icon ic-green" aria-hidden="true"><i class="ti ti-chart-bar"></i></div>
+          <div class="module-info">
+            <div class="module-title">Analytics</div>
+            <div class="module-desc">Revenue &amp; activity overview</div>
+          </div>
+          <i class="ti ti-chevron-right wide-chevron" aria-hidden="true"></i>
+        </button>
+
+      </div>
      </div>
    </div>
 
@@ -181,13 +215,39 @@
 
    <div id="toast" role="alert" aria-live="polite"></div>
 
-   <nav class="bottom-nav" id="bottom-nav">
-     <button class="nav-btn" data-screen="screen-home" onclick="showScreen('screen-home')"><i class="ti ti-home"></i><span>Home</span></button>
-     <button class="nav-btn" data-screen="screen-practice-hospital" onclick="startPractice()"><i class="ti ti-stethoscope"></i><span>Practice</span></button>
-     <button class="nav-btn" data-screen="screen-events" onclick="showScreen('screen-events')"><i class="ti ti-calendar-plus"></i><span>Events</span></button>
-     <button class="nav-btn" data-screen="screen-analytics" onclick="showScreen('screen-analytics')"><i class="ti ti-chart-bar"></i><span>Analytics</span></button>
-     <button class="nav-btn" data-screen="screen-cv" onclick="showScreen('screen-cv')"><i class="ti ti-id"></i><span>CV</span></button>
-   </nav>
+     <!-- ══ FIXED BOTTOM NAV ══ -->
+  <nav class="bottom-nav" aria-label="Main navigation" class="bottom-nav" id="bottom-nav">
+
+    <button class="nav-item" onclick="setActive(this); showScreen('screen-records')" aria-label="Records">
+      <div class="nav-icon-wrap"><i class="ti ti-folder-open" aria-hidden="true"></i></div>
+      <span class="nav-label">Records</span>
+    </button>
+
+    <button class="nav-item" onclick="setActive(this); showScreen('screen-events')" aria-label="Events">
+      <div class="nav-icon-wrap"><i class="ti ti-calendar-event" aria-hidden="true"></i></div>
+      <span class="nav-label">Events</span>
+    </button>
+
+    <!-- ── RAISED HOME BUTTON ── -->
+    <button class="nav-item nav-home active" onclick="setActive(this); showScreen('screen-home')" aria-label="Home" aria-current="page">
+      <div class="nav-icon-wrap"><i class="ti ti-home" aria-hidden="true"></i></div>
+      <span class="nav-label">Home</span>
+    </button>
+
+    <button class="nav-item" onclick="setActive(this); showScreen('screen-analytics')" aria-label="Analytics">
+      <div class="nav-icon-wrap">
+        <i class="ti ti-chart-bar" aria-hidden="true"></i>
+        <span class="nav-badge" aria-hidden="true"></span>
+      </div>
+      <span class="nav-label">Analytics</span>
+    </button>
+
+    <button class="nav-item" onclick="setActive(this); showScreen('screen-cv')" aria-label="Profile">
+      <div class="nav-icon-wrap"><i class="ti ti-user-circle" aria-hidden="true"></i></div>
+      <span class="nav-label">Profile</span>
+    </button>
+
+  </nav>
 
   </div>
 

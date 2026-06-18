@@ -1,2 +1,9 @@
-.stats-grid{ display:grid; grid-template-columns:1fr 1fr; gap:12px; padding:12px }
-.charts{ padding:12px; display:flex; flex-direction:column; gap:12px }
+/* Analytics-specific overrides */
+.stats-grid .stat-card:first-child {
+  grid-column: 1 / -1;
+  background: linear-gradient(135deg, var(--navy) 0%, #162e46 100%);
+  color: #fff;
+  border-color: transparent;
+}
+.stats-grid .stat-card:first-child .stat-card-label { color: rgba(247,249,251,0.50); }
+.stats-grid .stat-card:first-child .stat-card-value { color: var(--teal); font-size: 26px; }

@@ -6,12 +6,12 @@
   <title>MedFolio — Dr. Achala</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.7.0/dist/tabler-icons.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js" defer></script>
   <link rel="stylesheet" href="css/base.css">
-  <link rel="stylesheet" href="css/components.css">
   <link rel="stylesheet" href="css/home.css">
+  <link rel="stylesheet" href="css/components.css">
   <link rel="stylesheet" href="css/practice.css">
   <link rel="stylesheet" href="css/events.css">
   <link rel="stylesheet" href="css/records.css">
@@ -19,33 +19,55 @@
   <link rel="stylesheet" href="css/analytics.css">
 </head>
 <body>
-  <div class="app-wrapper">
+<div class="app-wrapper">
 
-   <!-- HOME -->
-   <div class="screen active" id="screen-home" class="header">
-     <div class="topbar">
-       <div></div>
-       <div class="topbar-title">MedFolio</div>
-       <div></div>
-     </div>
-     <div class="scrollable-content">
-       <div class="home-header">
-         <div class="home-greeting" id="greeting-text">Good Morning,</div>
-         <div class="home-name">Dr. Achala</div>
-         <div class="home-stats-row">
-           <div class="home-stat">
-             <div class="home-stat-label">This Month</div>
-             <div class="home-stat-value" id="stat-revenue">LKR 0</div>
-           </div>
-           <div class="home-stat">
-             <div class="home-stat-label">Events Logged</div>
-             <div class="home-stat-value" id="stat-events">0</div>
-           </div>
-         </div>
-       </div>
+  <!-- ═══════════════════ HOME ═══════════════════ -->
+  <div class="screen active" id="screen-home">
 
-  <!-- ══ SCROLLABLE CONTENT ══ -->
-       <div class="module-grid">
+    <!-- Dark header -->
+    <div class="home-header">
+      <div class="home-topbar">
+        <div class="logo">Med<em>Folio</em></div>
+        <div class="home-actions">
+          <button class="icon-btn" aria-label="Search"><i class="ti ti-search"></i></button>
+          <button class="icon-btn" aria-label="Notifications"><i class="ti ti-bell"></i></button>
+        </div>
+      </div>
+
+      <div class="home-greeting" id="greeting-text">Good morning,</div>
+      <div class="home-name">Dr. Achala</div>
+
+      <div class="home-stats-row">
+        <div class="home-stat">
+          <div class="home-stat-label">This Month</div>
+          <div class="home-stat-value" id="stat-revenue">LKR 0</div>
+        </div>
+        <div class="home-stat">
+          <div class="home-stat-label">Events Logged</div>
+          <div class="home-stat-value" id="stat-events">0</div>
+        </div>
+      </div>
+
+      <!-- ECG pulse strip -->
+      <div class="pulse-strip" aria-hidden="true">
+      <svg viewBox="0 0 1000 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <polyline
+          points="0,18 55,18 70,18 82,3 94,33 104,6 116,30 128,18 190,18
+                  250,18 265,18 277,3 289,33 299,6 311,30 323,18 385,18
+                  445,18 460,18 472,3 484,33 494,6 506,30 518,18 580,18
+                  640,18 655,18 667,3 679,33 689,6 701,30 713,18 760,18"
+          fill="none" stroke="#2EC4B6" stroke-width="1.6"
+          stroke-linecap="round" stroke-linejoin="round" opacity="0.28"
+        />
+      </svg>
+    </div>
+  </div>>
+
+    <!-- Cards section -->
+    <div class="home-scroll">
+      <div class="section-eyebrow">Quick Access</div>
+
+      <div class="module-grid">
 
         <button class="module-card" onclick="startPractice()" aria-label="Private Practice">
           <div class="module-icon ic-teal" aria-hidden="true"><i class="ti ti-stethoscope"></i></div>
@@ -55,7 +77,7 @@
           </div>
         </button>
 
-        <button class="module-card" onclick="showScreen('screen-events')" aria-label="Events">
+        <button class="module-card" onclick="navTo('screen-events')" aria-label="Events">
           <div class="module-icon ic-blue" aria-hidden="true"><i class="ti ti-calendar-event"></i></div>
           <div>
             <div class="module-title">Events</div>
@@ -63,7 +85,7 @@
           </div>
         </button>
 
-        <button class="module-card" onclick="showScreen('screen-records')" aria-label="View Records">
+        <button class="module-card" onclick="navTo('screen-records')" aria-label="View Records">
           <div class="module-icon ic-amber" aria-hidden="true"><i class="ti ti-folder-open"></i></div>
           <div>
             <div class="module-title">View Records</div>
@@ -71,7 +93,7 @@
           </div>
         </button>
 
-        <button class="module-card" onclick="showScreen('screen-cv')" aria-label="CV Dashboard">
+        <button class="module-card" onclick="navTo('screen-cv')" aria-label="CV Dashboard">
           <div class="module-icon ic-purple" aria-hidden="true"><i class="ti ti-file-cv"></i></div>
           <div>
             <div class="module-title">CV Dashboard</div>
@@ -79,7 +101,7 @@
           </div>
         </button>
 
-        <button class="module-card wide" onclick="showScreen('screen-analytics')" aria-label="Analytics">
+        <button class="module-card wide" onclick="navTo('screen-analytics')" aria-label="Analytics">
           <div class="module-icon ic-green" aria-hidden="true"><i class="ti ti-chart-bar"></i></div>
           <div class="module-info">
             <div class="module-title">Analytics</div>
@@ -89,152 +111,237 @@
         </button>
 
       </div>
-     </div>
-   </div>
+    </div>
+  </div><!-- /screen-home -->
 
-   <!-- PRACTICE: STEP 1 - HOSPITAL -->
-   <div class="screen" id="screen-practice-hospital">
-     <div class="topbar">
-       <button aria-label="Back" class="topbar-btn" onclick="goBack()"><i class="ti ti-arrow-left"></i></button>
-       <div class="topbar-title">Private Practice — Hospital</div>
-       <div></div>
-     </div>
-     <div class="scrollable-content">
-       <div class="info-card">Date: <span id="practice-date"></span></div>
-       <div class="hospital-grid" id="hospital-grid"></div>
-       <div style="padding:16px;"><button class="btn-primary" onclick="goToStep2()">Next →</button></div>
-     </div>
-   </div>
 
-   <!-- PRACTICE: STEP 2 - MODE -->
-   <div class="screen" id="screen-practice-mode">
-     <div class="topbar"><button aria-label="Back" class="topbar-btn" onclick="goBack()"><i class="ti ti-arrow-left"></i></button><div class="topbar-title">Entry Mode</div><div></div></div>
-     <div class="scrollable-content">
-       <div class="mode-grid">
-         <button class="mode-card" onclick="goToStep3('bulk')"><i class="ti ti-calculator"></i><h3>Bulk Total</h3><p>Enter overall totals for the session</p></button>
-         <button class="mode-card" onclick="goToStep3('individual')"><i class="ti ti-users"></i><h3>Per Patient</h3><p>Log each patient individually</p></button>
-       </div>
-     </div>
-   </div>
+  <!-- ═══════════════════ PRACTICE: HOSPITAL ═══════════════════ -->
+  <div class="screen" id="screen-practice-hospital">
+    <div class="topbar">
+      <button aria-label="Back" class="topbar-btn" onclick="goBack()"><i class="ti ti-arrow-left"></i></button>
+      <div class="topbar-title">Select Hospital</div>
+      <div></div>
+    </div>
+    <div class="scrollable-content">
+      <div class="info-card">📅 <span id="practice-date"></span></div>
+      <div class="hospital-grid" id="hospital-grid"></div>
+      <div style="padding:16px;">
+        <button class="btn-primary" onclick="goToStep2()">Continue <i class="ti ti-arrow-right"></i></button>
+      </div>
+    </div>
+  </div>
 
-   <!-- PRACTICE: BULK -->
-   <div class="screen" id="screen-practice-bulk">
-     <div class="topbar"><button aria-label="Back" class="topbar-btn" onclick="goBack()"><i class="ti ti-arrow-left"></i></button><div class="topbar-title">Bulk Entry</div><div></div></div>
-     <div class="scrollable-content">
-       <div class="practice-form" id="bulk-form">
-         <label>Number of Patients</label>
-         <select id="bulk-count" class="form-control"></select>
-         <label>Income Method</label>
-         <div><label><input type="radio" name="income-method" value="total" checked> Total Amount</label> <label><input type="radio" name="income-method" value="per"> Per Patient Rate</label></div>
-         <label id="bulk-amount-label">Total Amount (LKR)</label>
-         <input id="bulk-amount" type="number" class="form-control">
-         <label>Surgery Charges (LKR)</label>
-         <input id="bulk-surgery" type="number" class="form-control">
-         <label>Additional Income (LKR)</label>
-         <input id="bulk-additional" type="number" class="form-control">
-         <label>Expenses (LKR)</label>
-         <input id="bulk-expenses" type="number" class="form-control">
-         <label>Notes</label>
-         <textarea id="bulk-notes" class="form-control"></textarea>
-         <div class="net-display">Net: <span id="bulk-net">LKR 0</span></div>
-         <button class="btn-primary" onclick="saveBulkRecord()">Save Session</button>
-       </div>
-     </div>
-   </div>
 
-   <!-- PRACTICE: INDIVIDUAL -->
-   <div class="screen" id="screen-practice-individual">
-     <div class="topbar"><button aria-label="Back" class="topbar-btn" onclick="goBack()"><i class="ti ti-arrow-left"></i></button><div class="topbar-title">Per Patient Entry</div><button class="topbar-btn" onclick="finaliseIndividual()" aria-label="Save session">Save</button></div>
-     <div class="scrollable-content">
-       <div class="practice-form">
-         <label>BHT Number</label><input id="p-bht" class="form-control">
-         <label>Patient Name</label><input id="p-name" class="form-control">
-         <label>Patient ID</label><input id="p-pid" class="form-control">
-         <label>Charge (LKR)</label><input id="p-charge" type="number" class="form-control">
-         <button class="btn-secondary" onclick="addPatient()">Add Patient</button>
-         <hr>
-         <div id="patient-list"></div>
-         <div id="patient-summary" style="display:none"></div>
-       </div>
-     </div>
-   </div>
+  <!-- ═══════════════════ PRACTICE: MODE ═══════════════════ -->
+  <div class="screen" id="screen-practice-mode">
+    <div class="topbar">
+      <button aria-label="Back" class="topbar-btn" onclick="goBack()"><i class="ti ti-arrow-left"></i></button>
+      <div class="topbar-title">Entry Mode</div>
+      <div></div>
+    </div>
+    <div class="scrollable-content">
+      <div class="mode-grid">
+        <button class="mode-card" onclick="goToStep3('bulk')">
+          <i class="ti ti-calculator"></i>
+          <h3>Bulk Total</h3>
+          <p>Enter overall totals for the session</p>
+        </button>
+        <button class="mode-card" onclick="goToStep3('individual')">
+          <i class="ti ti-users"></i>
+          <h3>Per Patient</h3>
+          <p>Log each patient individually</p>
+        </button>
+      </div>
+    </div>
+  </div>
 
-   <!-- EVENTS -->
-   <div class="screen" id="screen-events">
-     <div class="topbar"><button aria-label="Back" class="topbar-btn" onclick="showScreen('screen-home')"><i class="ti ti-arrow-left"></i></button><div class="topbar-title">Events</div><div></div></div>
-     <div class="scrollable-content">
-       <div id="events-chips" class="chips"></div>
-       <div class="practice-form">
-         <label>Title</label><input id="ev-title" class="form-control">
-         <label>Date</label><input id="ev-date" type="date" class="form-control">
-         <label>Role</label><input id="ev-role" class="form-control">
-         <label>Venue / Institution</label><input id="ev-venue" class="form-control">
-         <label>Description</label><textarea id="ev-desc" class="form-control" rows="3"></textarea>
-         <label>Collaborators</label><input id="ev-collab" class="form-control">
-         <div class="file-zone" id="file-zone">Tap to attach certificate, photo, or PDF<input type="file" id="ev-file" style="display:none"></div>
-         <button class="btn-primary" onclick="saveEvent()">Save Event</button>
-       </div>
-     </div>
-   </div>
 
-   <!-- RECORDS -->
-   <div class="screen" id="screen-records">
-     <div class="topbar"><button aria-label="Back" class="topbar-btn" onclick="showScreen('screen-home')"><i class="ti ti-arrow-left"></i></button><div class="topbar-title">Records</div><div></div></div>
-     <div class="scrollable-content">
-       <div class="filter-pills" id="filter-pills"></div>
-       <div class="revenue-card" id="revenue-card"></div>
-       <div id="records-list"></div>
-     </div>
-   </div>
+  <!-- ═══════════════════ PRACTICE: BULK ═══════════════════ -->
+  <div class="screen" id="screen-practice-bulk">
+    <div class="topbar">
+      <button aria-label="Back" class="topbar-btn" onclick="goBack()"><i class="ti ti-arrow-left"></i></button>
+      <div class="topbar-title">Bulk Entry</div>
+      <div></div>
+    </div>
+    <div class="scrollable-content">
+      <div class="practice-form" id="bulk-form">
+        <div>
+          <label>Number of Patients</label>
+          <select id="bulk-count" class="form-control"></select>
+        </div>
+        <div>
+          <label>Income Method</label>
+          <div style="display:flex;gap:16px;margin-top:4px">
+            <label style="display:flex;align-items:center;gap:6px;font-weight:400;color:var(--text-pri)">
+              <input type="radio" name="income-method" value="total" checked> Total Amount
+            </label>
+            <label style="display:flex;align-items:center;gap:6px;font-weight:400;color:var(--text-pri)">
+              <input type="radio" name="income-method" value="per"> Per Patient Rate
+            </label>
+          </div>
+        </div>
+        <div>
+          <label id="bulk-amount-label">Total Amount (LKR)</label>
+          <input id="bulk-amount" type="number" class="form-control" placeholder="0">
+        </div>
+        <div>
+          <label>Surgery Charges (LKR)</label>
+          <input id="bulk-surgery" type="number" class="form-control" placeholder="0">
+        </div>
+        <div>
+          <label>Additional Income (LKR)</label>
+          <input id="bulk-additional" type="number" class="form-control" placeholder="0">
+        </div>
+        <div>
+          <label>Expenses (LKR)</label>
+          <input id="bulk-expenses" type="number" class="form-control" placeholder="0">
+        </div>
+        <div>
+          <label>Notes</label>
+          <textarea id="bulk-notes" class="form-control" rows="3" placeholder="Optional session notes..."></textarea>
+        </div>
+        <div class="net-display">Net: <span id="bulk-net">LKR 0</span></div>
+        <button class="btn-primary" onclick="saveBulkRecord()"><i class="ti ti-device-floppy"></i> Save Session</button>
+      </div>
+    </div>
+  </div>
 
-   <!-- CV -->
-   <div class="screen" id="screen-cv">
-     <div class="topbar"><div></div><div class="topbar-title">CV Dashboard</div><div></div></div>
-     <div class="scrollable-content">
-       <div class="cv-header">
-         <div class="avatar">AD</div>
-         <div class="cv-info"><div class="cv-name">Dr. Achala</div><div class="cv-role">MBBS · Surgical Research Assistant</div></div>
-         <div class="cv-actions"><button class="btn-secondary" onclick="showToast('Export feature coming soon')">Export PDF</button><button class="btn-secondary" onclick="showToast('Export feature coming soon')">Export DOCX</button></div>
-       </div>
-       <div id="cv-sections"></div>
-     </div>
-   </div>
 
-   <!-- ANALYTICS -->
-   <div class="screen" id="screen-analytics">
-     <div class="topbar"><button aria-label="Back" class="topbar-btn" onclick="showScreen('screen-home')"><i class="ti ti-arrow-left"></i></button><div class="topbar-title">Analytics</div><div></div></div>
-     <div class="scrollable-content">
-       <div class="stats-grid" id="analytics-stats"></div>
-       <div class="charts">
-         <canvas id="chart-monthly" height="160"></canvas>
-         <canvas id="chart-distribution" height="140"></canvas>
-         <canvas id="chart-location" height="120"></canvas>
-       </div>
-     </div>
-   </div>
+  <!-- ═══════════════════ PRACTICE: INDIVIDUAL ═══════════════════ -->
+  <div class="screen" id="screen-practice-individual">
+    <div class="topbar">
+      <button aria-label="Back" class="topbar-btn" onclick="goBack()"><i class="ti ti-arrow-left"></i></button>
+      <div class="topbar-title">Per Patient Entry</div>
+      <button class="topbar-btn" onclick="finaliseIndividual()" aria-label="Save session" style="color:var(--teal);font-size:14px;font-weight:700;width:auto;padding:0 4px">Save</button>
+    </div>
+    <div class="scrollable-content">
+      <div class="practice-form">
+        <div><label>BHT Number</label><input id="p-bht" class="form-control" placeholder="BHT-XXXX"></div>
+        <div><label>Patient Name</label><input id="p-name" class="form-control" placeholder="Full name"></div>
+        <div><label>Patient ID</label><input id="p-pid" class="form-control" placeholder="ID number"></div>
+        <div><label>Charge (LKR)</label><input id="p-charge" type="number" class="form-control" placeholder="0"></div>
+        <button class="btn-teal" onclick="addPatient()"><i class="ti ti-plus"></i> Add Patient</button>
+        <div id="patient-list"></div>
+        <div id="patient-summary" style="display:none;background:var(--teal-dim);border-radius:var(--radius-sm);padding:12px;font-weight:600;color:var(--navy);font-size:14px;"></div>
+      </div>
+    </div>
+  </div>
 
-   <div id="toast" role="alert" aria-live="polite"></div>
 
-     <!-- ══ FIXED BOTTOM NAV ══ -->
-  <nav class="bottom-nav" aria-label="Main navigation" class="bottom-nav" id="bottom-nav">
+  <!-- ═══════════════════ EVENTS ═══════════════════ -->
+  <div class="screen" id="screen-events">
+    <div class="topbar">
+      <button aria-label="Back" class="topbar-btn" onclick="navTo('screen-home')"><i class="ti ti-arrow-left"></i></button>
+      <div class="topbar-title">Log Event</div>
+      <div></div>
+    </div>
+    <div class="scrollable-content">
+      <div id="events-chips" class="chips"></div>
+      <div class="practice-form">
+        <div><label>Title</label><input id="ev-title" class="form-control" placeholder="Event or activity title"></div>
+        <div><label>Date</label><input id="ev-date" type="date" class="form-control"></div>
+        <div><label>Role</label><input id="ev-role" class="form-control" placeholder="Your role (e.g. Lecturer, Presenter)"></div>
+        <div><label>Venue / Institution</label><input id="ev-venue" class="form-control" placeholder="Location or institution"></div>
+        <div><label>Description</label><textarea id="ev-desc" class="form-control" rows="3" placeholder="Brief description..."></textarea></div>
+        <div><label>Collaborators</label><input id="ev-collab" class="form-control" placeholder="Names of collaborators"></div>
+        <div class="file-zone" id="file-zone">
+          <i class="ti ti-paperclip" style="font-size:20px;margin-bottom:4px;display:block"></i>
+          Tap to attach certificate, photo, or PDF
+          <input type="file" id="ev-file" style="display:none">
+        </div>
+        <button class="btn-primary" onclick="saveEvent()"><i class="ti ti-check"></i> Save Event</button>
+      </div>
+    </div>
+  </div>
 
-    <button class="nav-item" onclick="setActive(this); showScreen('screen-records')" aria-label="Records">
+
+  <!-- ═══════════════════ RECORDS ═══════════════════ -->
+  <div class="screen" id="screen-records">
+    <div class="topbar">
+      <button aria-label="Back" class="topbar-btn" onclick="navTo('screen-home')"><i class="ti ti-arrow-left"></i></button>
+      <div class="topbar-title">Records</div>
+      <div></div>
+    </div>
+    <div class="scrollable-content">
+      <div class="filter-pills" id="filter-pills"></div>
+      <div id="revenue-card"></div>
+      <div id="records-list"></div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════ CV ═══════════════════ -->
+  <div class="screen" id="screen-cv">
+    <div class="topbar">
+      <button aria-label="Back" class="topbar-btn" onclick="navTo('screen-home')"><i class="ti ti-arrow-left"></i></button>
+      <div class="topbar-title">CV Dashboard</div>
+      <div></div>
+    </div>
+    <div class="scrollable-content">
+      <div class="cv-header">
+        <div class="avatar">AD</div>
+        <div class="cv-info">
+          <div class="cv-name">Dr. Achala</div>
+          <div class="cv-role">MBBS · Surgical Research Assistant</div>
+        </div>
+      </div>
+      <div class="cv-actions" style="padding:0 16px 16px;display:flex;gap:10px;">
+        <button class="btn-secondary" onclick="showToast('Export feature coming soon')">Export PDF</button>
+        <button class="btn-secondary" onclick="showToast('Export feature coming soon')">Export DOCX</button>
+      </div>
+      <div id="cv-sections"></div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════ ANALYTICS ═══════════════════ -->
+  <div class="screen" id="screen-analytics">
+    <div class="topbar">
+      <button aria-label="Back" class="topbar-btn" onclick="navTo('screen-home')"><i class="ti ti-arrow-left"></i></button>
+      <div class="topbar-title">Analytics</div>
+      <div></div>
+    </div>
+    <div class="scrollable-content">
+      <div class="stats-grid" id="analytics-stats"></div>
+      <div class="charts">
+        <div class="chart-card">
+          <div class="chart-title">Monthly Revenue</div>
+          <canvas id="chart-monthly" height="160"></canvas>
+        </div>
+        <div class="chart-card">
+          <div class="chart-title">Activity Distribution</div>
+          <canvas id="chart-distribution" height="160"></canvas>
+        </div>
+        <div class="chart-card">
+          <div class="chart-title">Revenue by Location</div>
+          <canvas id="chart-location" height="140"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div id="toast" role="alert" aria-live="polite"></div>
+
+  <!-- ═══════════════════ BOTTOM NAV ═══════════════════ -->
+  <nav class="bottom-nav" aria-label="Main navigation" id="bottom-nav">
+
+    <button class="nav-item" data-screen="screen-records" onclick="setActive(this); navTo('screen-records')" aria-label="Records">
       <div class="nav-icon-wrap"><i class="ti ti-folder-open" aria-hidden="true"></i></div>
       <span class="nav-label">Records</span>
     </button>
 
-    <button class="nav-item" onclick="setActive(this); showScreen('screen-events')" aria-label="Events">
+    <button class="nav-item" data-screen="screen-events" onclick="setActive(this); navTo('screen-events')" aria-label="Events">
       <div class="nav-icon-wrap"><i class="ti ti-calendar-event" aria-hidden="true"></i></div>
       <span class="nav-label">Events</span>
     </button>
 
-    <!-- ── RAISED HOME BUTTON ── -->
-    <button class="nav-item nav-home active" onclick="setActive(this); showScreen('screen-home')" aria-label="Home" aria-current="page">
+    <button class="nav-item nav-home active" data-screen="screen-home" onclick="setActive(this); navTo('screen-home')" aria-label="Home" aria-current="page">
       <div class="nav-icon-wrap"><i class="ti ti-home" aria-hidden="true"></i></div>
       <span class="nav-label">Home</span>
     </button>
 
-    <button class="nav-item" onclick="setActive(this); showScreen('screen-analytics')" aria-label="Analytics">
+    <button class="nav-item" data-screen="screen-analytics" onclick="setActive(this); navTo('screen-analytics')" aria-label="Analytics">
       <div class="nav-icon-wrap">
         <i class="ti ti-chart-bar" aria-hidden="true"></i>
         <span class="nav-badge" aria-hidden="true"></span>
@@ -242,29 +349,28 @@
       <span class="nav-label">Analytics</span>
     </button>
 
-    <button class="nav-item" onclick="setActive(this); showScreen('screen-cv')" aria-label="Profile">
+    <button class="nav-item" data-screen="screen-cv" onclick="setActive(this); navTo('screen-cv')" aria-label="Profile">
       <div class="nav-icon-wrap"><i class="ti ti-user-circle" aria-hidden="true"></i></div>
       <span class="nav-label">Profile</span>
     </button>
 
   </nav>
 
-  </div>
+</div><!-- /app-wrapper -->
 
-  <script src="js/auth.js"></script>
-  <script src="js/state.js"></script>
-  <script src="js/utils.js"></script>
-  <script src="js/router.js"></script>
-  <script src="js/practice.js"></script>
-  <script src="js/events.js"></script>
-  <script src="js/records.js"></script>
-  <script src="js/cv.js"></script>
-  <script src="js/analytics.js"></script>
-  <script>
-   checkSession();
-   AppState.load();
-   initHome();
-   renderRecords();
-  </script>
+<script src="js/auth.js"></script>
+<script src="js/state.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/router.js"></script>
+<script src="js/practice.js"></script>
+<script src="js/events.js"></script>
+<script src="js/records.js"></script>
+<script src="js/cv.js"></script>
+<script src="js/analytics.js"></script>
+<script>
+  checkSession();
+  AppState.load();
+  initHome();
+</script>
 </body>
 </html>

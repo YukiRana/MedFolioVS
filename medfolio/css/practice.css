@@ -1,4 +1,14 @@
-.hospital-grid button{ min-height:60px }
-.mode-card h3{ margin:8px 0 }
-.patient-list{ padding:0; margin:0 }
-.patient-row .del{ color:var(--red); border:none; background:none }
+/* practice-specific overrides — bulk/individual forms */
+#bulk-form input[type="radio"] { accent-color: var(--teal); }
+
+.net-display {
+  background: linear-gradient(135deg, var(--teal-dim), rgba(46,196,182,0.08));
+  border: 1.5px solid rgba(46,196,182,0.25);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--navy);
+  text-align: center;
+  letter-spacing: -0.3px;
+}

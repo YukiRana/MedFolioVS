@@ -1,3 +1,7 @@
-.chips{ max-width:100%; overflow:auto }
-.file-zone{ display:block }
-/*this is a comment*/
+/* Events-specific overrides */
+#events-chips .selected {
+  border-color: var(--teal);
+  background: var(--teal-dim);
+  color: var(--navy);
+  font-weight: 600;
+}

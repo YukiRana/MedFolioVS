@@ -1,2 +1,137 @@
 /* Records-specific overrides */
 .filter-pills .pill:hover { background: var(--bg); }
+
+/* ── Swipe-to-delete wrapper ── */
+.record-swipe-wrapper {
+  position: relative;
+  overflow: hidden;
+  margin: 6px 16px;
+  border-radius: var(--radius-md);
+}
+
+/* Pull the card out of its normal margin so wrapper controls it */
+.record-swipe-wrapper .record-card {
+  margin: 0;
+  border-radius: var(--radius-md);
+  position: relative;
+  z-index: 1;
+  transform: translateX(0);
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  touch-action: pan-y;
+  user-select: none;
+  will-change: transform;
+}
+
+/* Red delete button revealed on swipe */
+.record-delete-bg {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 80px;
+  background: #E53E3E;
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  z-index: 0;
+}
+.record-delete-bg i { font-size: 20px; }
+
+/* When swiped open */
+.record-swipe-wrapper.swiped .record-card {
+  transform: translateX(-80px);
+}
+
+/* ── Multi-select mode ── */
+.records-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 16px 4px;
+  min-height: 40px;
+}
+.records-toolbar .select-btn {
+  background: none;
+  border: none;
+  color: var(--teal);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 4px 0;
+  cursor: pointer;
+}
+.records-toolbar .delete-selected-btn {
+  background: #E53E3E;
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  padding: 6px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: none;
+  gap: 5px;
+  align-items: center;
+}
+.records-toolbar .delete-selected-btn.visible {
+  display: flex;
+}
+
+/* Checkbox overlay on card */
+.record-swipe-wrapper .record-checkbox {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%) scale(0.7);
+  z-index: 2;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s, transform 0.15s;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid var(--border-md);
+  background: var(--surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.record-swipe-wrapper .record-checkbox i {
+  font-size: 13px;
+  color: #fff;
+  opacity: 0;
+}
+
+/* Select mode states */
+body.select-mode .record-swipe-wrapper .record-checkbox {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(-50%) scale(1);
+}
+body.select-mode .record-swipe-wrapper .record-card {
+  transform: translateX(34px) !important;
+  transition: transform 0.2s ease;
+  cursor: pointer;
+}
+.record-swipe-wrapper.checked .record-checkbox {
+  background: var(--teal);
+  border-color: var(--teal);
+}
+.record-swipe-wrapper.checked .record-checkbox i {
+  opacity: 1;
+}
+
+/* Animate out on delete */
+.record-swipe-wrapper.deleting {
+  animation: slideOut 0.3s ease forwards;
+}
+@keyframes slideOut {
+  to { transform: translateX(110%); opacity: 0; max-height: 0; margin: 0; }
+}

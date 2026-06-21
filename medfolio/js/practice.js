@@ -6,7 +6,7 @@ function startPractice() {
 }
 
 function populateHospitals() {
-  const hospitals = ['Colombo', 'Kandy', 'Galle', 'Jaffna', 'Negombo', 'Lakeside', 'Maharagama', 'NHSL'];
+  const hospitals = ['Asiri', 'Suwasewana', 'Lakeside', 'Madawala', 'Digana', 'Manikhinna'];
   const grid = document.getElementById('hospital-grid');
   grid.innerHTML = hospitals.map(h =>
     `<button type="button" onclick="selectHospital('${h}', this)">${h}</button>`
@@ -40,7 +40,7 @@ function goToStep3(mode) {
 function initBulk() {
   const sel = document.getElementById('bulk-count');
   if (!sel) return;
-  sel.innerHTML = Array.from({ length: 50 }, (_, i) =>
+  sel.innerHTML = Array.from({ length: 20 }, (_, i) =>
     `<option value="${i + 1}">${i + 1}</option>`
   ).join('');
 

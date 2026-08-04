@@ -1,5 +1,5 @@
 const EVENT_CATEGORIES = [
-  'Teaching Activities', 'Research & Publications', 'Conferences & Workshops',
+  'MISc', 'Teaching Activities', 'Research & Publications', 'Conferences & Workshops',
   'Presentations', 'Examiner Roles', 'Postgraduate Training',
   'Clinical Appointments', 'Innovation & AI', 'Awards & Recognition',
   'Student Supervision', 'Curriculum Development'

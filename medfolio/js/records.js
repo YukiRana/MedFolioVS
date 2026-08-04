@@ -17,6 +17,50 @@ function deleteItem(id) {
   AppState.save();
 }
 
+/* ── Delete confirmation modal ── */
+function ensureConfirmModal() {
+  if (document.getElementById('confirm-modal')) return;
+  const modal = document.createElement('div');
+  modal.id = 'confirm-modal';
+  modal.className = 'confirm-modal-overlay';
+  modal.innerHTML = `
+    <div class="confirm-modal">
+      <div class="confirm-modal-icon"><i class="ti ti-alert-triangle"></i></div>
+      <div class="confirm-modal-title">Delete?</div>
+      <div class="confirm-modal-msg"></div>
+      <div class="confirm-modal-actions">
+        <button class="confirm-modal-cancel" type="button">Cancel</button>
+        <button class="confirm-modal-confirm" type="button"><i class="ti ti-trash"></i> Delete</button>
+      </div>
+    </div>`;
+  document.body.appendChild(modal);
+
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeConfirmModal();
+  });
+  modal.querySelector('.confirm-modal-cancel').addEventListener('click', closeConfirmModal);
+}
+
+function closeConfirmModal() {
+  const modal = document.getElementById('confirm-modal');
+  if (modal) modal.classList.remove('open');
+}
+
+function showConfirmModal(message, onConfirm, title) {
+  ensureConfirmModal();
+  const modal = document.getElementById('confirm-modal');
+  modal.querySelector('.confirm-modal-title').textContent = title || 'Delete?';
+  modal.querySelector('.confirm-modal-msg').textContent = message;
+
+  const confirmBtn = modal.querySelector('.confirm-modal-confirm');
+  confirmBtn.onclick = () => {
+    closeConfirmModal();
+    onConfirm();
+  };
+
+  modal.classList.add('open');
+}
+
 /* ── Toolbar ── */
 function renderToolbar() {
   let tb = document.getElementById('records-toolbar');
@@ -48,18 +92,27 @@ function toggleSelectMode() {
 
 function deleteSelected() {
   const wrappers = document.querySelectorAll('.record-swipe-wrapper.checked');
-  wrappers.forEach(w => {
-    const id = w.dataset.id;
-    w.classList.add('deleting');
-    setTimeout(() => { deleteItem(id); }, 280);
-  });
-  setTimeout(() => {
-    checkedIds.clear();
-    selectMode = false;
-    document.body.classList.remove('select-mode');
-    renderRecords();
-  }, 320);
-  showToast(`${wrappers.length} record${wrappers.length !== 1 ? 's' : ''} deleted`);
+  const count = wrappers.length;
+  if (count === 0) return;
+
+  showConfirmModal(
+    `This will permanently delete ${count} selected record${count !== 1 ? 's' : ''}. This action cannot be undone.`,
+    () => {
+      wrappers.forEach(w => {
+        const id = w.dataset.id;
+        w.classList.add('deleting');
+        setTimeout(() => { deleteItem(id); }, 280);
+      });
+      setTimeout(() => {
+        checkedIds.clear();
+        selectMode = false;
+        document.body.classList.remove('select-mode');
+        renderRecords();
+      }, 320);
+      showToast(`${count} record${count !== 1 ? 's' : ''} deleted`);
+    },
+    `Delete ${count} record${count !== 1 ? 's' : ''}?`
+  );
 }
 
 /* ── Swipe logic ── */
@@ -143,12 +196,18 @@ function attachDeleteBtn(wrapper) {
   btn.addEventListener('click', (e) => {
     e.stopPropagation();
     const id = wrapper.dataset.id;
-    wrapper.classList.add('deleting');
-    setTimeout(() => {
-      deleteItem(id);
-      renderRecords();
-      showToast('Record deleted');
-    }, 280);
+    showConfirmModal(
+      'This will permanently delete this record. This action cannot be undone.',
+      () => {
+        wrapper.classList.add('deleting');
+        setTimeout(() => {
+          deleteItem(id);
+          renderRecords();
+          showToast('Record deleted');
+        }, 280);
+      },
+      'Delete this record?'
+    );
   });
 }
 

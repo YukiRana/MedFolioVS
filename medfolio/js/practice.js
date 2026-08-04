@@ -5,8 +5,11 @@ function startPractice() {
   navigateTo('screen-practice-hospital');
 }
 
+// Hospitals where Surgery Charges applies in Bulk Entry
+const SURGERY_CHARGE_HOSPITALS = ['Asiri', 'Suwasewana', 'Lakeside', 'Manikhinna'];
+
 function populateHospitals() {
-  const hospitals = ['Asiri', 'Suwasewana', 'Lakeside', 'Madawala', 'Digana', 'Manikhinna'];
+  const hospitals = ['Asiri', 'Suwasewana', 'Lakeside', 'Madawala', 'Digana', 'Manikhinna', 'CCC'];
   const grid = document.getElementById('hospital-grid');
   grid.innerHTML = hospitals.map(h =>
     `<button type="button" onclick="selectHospital('${h}', this)">${h}</button>`
@@ -20,6 +23,18 @@ function selectHospital(name, btn) {
   );
 }
 
+function updateSurgeryFieldVisibility() {
+  const group = document.getElementById('bulk-surgery-group');
+  if (!group) return;
+  const show = SURGERY_CHARGE_HOSPITALS.includes(AppState.selectedHospital);
+  group.style.display = show ? '' : 'none';
+  if (!show) {
+    const input = document.getElementById('bulk-surgery');
+    if (input) input.value = '';
+  }
+  calcBulk();
+}
+
 function goToStep2() {
   if (!AppState.selectedHospital) { showToast('Select a hospital first'); return; }
   navigateTo('screen-practice-mode');
@@ -28,6 +43,7 @@ function goToStep2() {
 function goToStep3(mode) {
   AppState.entryMode = mode;
   if (mode === 'bulk') {
+    updateSurgeryFieldVisibility();
     navigateTo('screen-practice-bulk');
   } else {
     AppState.individualPatients = [];
